@@ -20,6 +20,7 @@ class FileManagerImpl(
 
     companion object {
         const val LOGGER_FOLDER_NAME = "logger"
+        const val REPORT_FOLDER_NAME = "report"
     }
 
     private lateinit var fileReader: FileReader
