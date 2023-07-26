@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">BlackBox</string>
+
+    <string name="generate_report_button">Generate Report</string>
+    <string name="add_log_button">Add Log</string>
+
+    <string name="share_report">"Share Report"</string>
+    <string name="share_file">"Share File"</string>
+    <string name="share_email">"Share Email"</string>
+    <string name="minutes">"minutes"</string>
+    <string name="report_email_subject">"Report Email"</string>
+    <string name="report_email_message">"Please find attached the report."</string>
+    <string name="report_file_not_found">"Report file not found"</string>
+    <string name="time_range_title">"Select Time Range"</string>
+    <string name="select_time_error">"Please select a Time!"</string>
+    <string name="cancel">"Cancel"</string>
+    <string name="description">"Select the time range for the log report:"</string>
+</resources>
