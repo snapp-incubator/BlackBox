@@ -118,6 +118,5 @@ logger.close()
 
 Contributions to the Poaro Library are welcome! If you encounter any issues or have suggestions for improvements, please submit an issue or pull request on the GitHub repository.
 
-## License
-
-That's it! You are now ready to start using the Poaro Library in your projects. Happy logging!
+## Credits
+Based on @rezpilehvar's idea.
