@@ -5,11 +5,14 @@ import cab.snapp.blackBox.filestream.FileStreamImpl
 import cab.snapp.blackBox.loki.LokiStream
 import cab.snapp.blackBox.poaro.FileStream
 import cab.snapp.blackBox.poaro.LogLevel
+import cab.snapp.blackBox.poaro.LogReportGenerator
 import cab.snapp.blackBox.poaro.LogStream
 import cab.snapp.blackBox.poaro.SnappLogger
 import cab.snapp.blackBox.poaro.buffer.Buffer
 import cab.snapp.blackBox.poaro.buffer.FileCacheBuffer
 import cab.snapp.blackBox.poaro.buffer.NetworkCacheBuffer
+import cab.snapp.blackBox.poaro.fileManager.FileDeletionHandler
+import cab.snapp.blackBox.poaro.fileManager.FileDeletionHandlerImpl
 import cab.snapp.blackBox.poaro.fileManager.FileManager
 import cab.snapp.blackBox.poaro.fileManager.FileManagerImpl
 import cab.snapp.blackBox.poaro.flushers.CountFlusher
@@ -108,8 +111,10 @@ class ApplicationModule {
     fun provideFileManager(
         fileDirectory: File,
         timeFormatter: SimpleDateFormat,
+        fileDeletionHandler: FileDeletionHandler
     ): FileManager {
         return FileManagerImpl(
+            fileDeletionHandler,
             fileDirectory,
             timeFormatter
         )
@@ -163,6 +168,20 @@ class ApplicationModule {
             lokiURL = "",
             appName = "",
             flusher = flusher
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideLogReporter(fileDirectory: File): LogReportGenerator {
+        return LogReportGenerator(fileDirectory)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileDeletionManager() : FileDeletionHandler {
+        return FileDeletionHandlerImpl(
+            hours = 2
         )
     }
 }
