@@ -12,6 +12,7 @@ import java.util.Date
 
 
 class FileManagerImpl(
+    override val fileDeletionHandler: FileDeletionHandler,
     private val fileDirectory: File,
     private val timeFormatter: SimpleDateFormat,
     private val loggerFolderName: String = LOGGER_FOLDER_NAME
@@ -45,6 +46,7 @@ class FileManagerImpl(
                 }
             }
         }
+        fileDeletionHandler.start(loggerFolder)
     }
 
     @Suppress("BlockingMethodInNonBlockingContext")
