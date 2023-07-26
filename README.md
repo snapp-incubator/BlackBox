@@ -119,4 +119,4 @@ logger.close()
 Contributions to the Poaro Library are welcome! If you encounter any issues or have suggestions for improvements, please submit an issue or pull request on the GitHub repository.
 
 ## Credits
-Based on @rezpilehvar 's idea.
+Based on [Reza Pilehvar](https://www.github.com/rezpilehvar)'s idea.
