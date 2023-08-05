@@ -65,9 +65,10 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-    implementation project(':poaro')
-    implementation project(":streams:loki")
-    implementation project(":streams:fileStream")
+    implementation 'io.github.snapp-incubator:poaro:1.0.0'
+    implementation 'io.github.snapp-incubator:file-stream:1.0.0'
+    implementation 'io.github.snapp-incubator:loki:1.0.0'
+    implementation 'io.github.snapp-incubator:crash-handler:1.0.0'
 
     implementation 'com.google.dagger:dagger:2.44'
     kapt 'com.google.dagger:dagger-compiler:2.44'
