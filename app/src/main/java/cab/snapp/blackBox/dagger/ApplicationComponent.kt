@@ -15,7 +15,8 @@ interface ApplicationComponent {
     interface Factory {
 
         fun create(
-            @BindsInstance fileDirectory: File
+            @BindsInstance fileDirectory: File,
+            @BindsInstance onCrashCaught: (Throwable) -> Unit
         ): ApplicationComponent
     }
 

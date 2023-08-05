@@ -68,6 +68,7 @@ dependencies {
     implementation project(':poaro')
     implementation project(":streams:loki")
     implementation project(":streams:fileStream")
+    implementation project(":crashHandler")
 
     implementation 'com.google.dagger:dagger:2.44'
     kapt 'com.google.dagger:dagger-compiler:2.44'

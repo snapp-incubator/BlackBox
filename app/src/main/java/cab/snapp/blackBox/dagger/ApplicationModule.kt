@@ -1,6 +1,7 @@
 package cab.snapp.blackBox.dagger
 
 import cab.snapp.blackBox.crashHandler.CrashHandler
+import cab.snapp.blackBox.crashHandler.CrashHandlerInApp
 import cab.snapp.blackBox.filestream.FileStreamImpl
 import cab.snapp.blackBox.loki.LokiStream
 import cab.snapp.blackBox.poaro.FileStream
@@ -102,8 +103,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideCrashHandler(logger: SnappLogger): CrashHandler {
-        return CrashHandler(logger = logger)
+    fun provideCrashHandler(onCrashCaught: (Throwable) -> Unit): CrashHandler {
+        return CrashHandler(onCrashCaught)
     }
 
 
