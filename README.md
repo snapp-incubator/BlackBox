@@ -64,7 +64,7 @@ Logger logger = new Logger(logStreams, LogLevel.Debug)
 4. Start logging messages with different log levels:
 ```groovy
 // Info
-logger.i(LogLevel.Info, "App", "Application started")
+logger.i("App", "Application started")
 // Warning
 logger.w("App", "Resource not found")
 // Error
