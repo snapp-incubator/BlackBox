@@ -60,6 +60,7 @@ LogStream fileStream = new FileLogStream("logs.log")
 List<LogStream> logStreams = [fileStream]
 Logger logger = new Logger(logStreams, LogLevel.Debug)
 ```
+You can find the complete implementation in the "app" module.
 
 4. Start logging messages with different log levels:
 ```groovy
