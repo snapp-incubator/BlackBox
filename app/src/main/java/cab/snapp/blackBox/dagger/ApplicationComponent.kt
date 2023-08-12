@@ -16,7 +16,7 @@ interface ApplicationComponent {
 
         fun create(
             @BindsInstance fileDirectory: File,
-            @BindsInstance onCrashCaught: (Throwable) -> Unit
+            @BindsInstance onCrashCaught: suspend (Throwable) -> Unit
         ): ApplicationComponent
     }
 

@@ -102,7 +102,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideCrashHandler(onCrashCaught: (Throwable) -> Unit): CrashHandler {
+    fun provideCrashHandler(onCrashCaught: suspend (Throwable) -> Unit): CrashHandler {
         return CrashHandler(onCrashCaught)
     }
 

@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CrashHandler(
-    private val onCrashCaught: (Throwable) -> Unit
+    private val onCrashCaught: suspend (Throwable) -> Unit
 ) {
 
     private val scope = CoroutineScope(Dispatchers.IO)
