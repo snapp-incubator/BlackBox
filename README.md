@@ -31,12 +31,18 @@ It allows you to log messages with different log levels, send logs to multiple s
 
 ## Getting Started
 
-To use the Poaro Library in your Android project, follow these steps:
+To integrate the Poaro Library into your Android project, follow these steps:
 
-1. Add the Poaro Library dependency to your project's `build.gradle` file:
+1. Add the Poaro Library dependencies to your project's `build.gradle` file:
 ```groovy
 dependencies {
-    implementation 'cab.snapp.blackBox:poaro:1.0.0'
+    implementation 'io.github.snapp-incubator:poaro:1.0.0'
+    
+    // if u want to use fileStream
+    implementation 'io.github.snapp-incubator:file-stream:1.0.0'
+
+    // if u want to use loki
+    implementation 'io.github.snapp-incubator:loki:1.0.0'
 }
 ```
 
@@ -54,12 +60,18 @@ LogStream fileStream = new FileLogStream("logs.log")
 List<LogStream> logStreams = [fileStream]
 Logger logger = new Logger(logStreams, LogLevel.Debug)
 ```
+You can find the complete implementation in the `app` module.
 
 4. Start logging messages with different log levels:
 ```groovy
-logger.log(LogLevel.Info, "App", "Application started")
-logger.log(LogLevel.Warning, "App", "Resource not found")
-logger.log(LogLevel.Error, "App", "An error occurred")
+// Info
+logger.i("App", "Application started")
+// Warning
+logger.w("App", "Resource not found")
+// Error
+logger.e("App", "An error occurred")
+// Force
+logger.f("App", "Crash occurred")
 ```
 
 5. Close the logger when it's no longer needed:
@@ -73,7 +85,25 @@ The `SnappLogger` class serves as the main entry point for using the Poaro Libra
 
 ## Log Streams
 
-Log streams represent destinations where log messages are sent. The library provides a built-in log stream called `FileStream`, which writes log messages to a file. Additionally, you can create custom log streams based on your specific requirements, such as sending logs to a database or a remote logging service.
+Log streams represent destinations where log messages are sent.
+The library provides a built-in log streams called `FileStreamImpl` and `Loki`.
+`FileStreamImpl` offers the ability to write logs to internal storage. which u can find the logs in `Device File Explorer/data/data/your-package-name/files/logger`, And if you open it after logging you can see there is your loggers files and  another file called `file_stream_cache`
+which is responsible for logs that didn't go through the stream because of not meeting the flusher limitation. those logs will be send to streams immediately after reopening the application.(note that if you want to send the logs to stream as soon as possible, you can use `NoLimitFlusher` or
+you can use ```groovy logger.f``` which is force level for logging)
+`Loki` provides the capability of sending logs to the server.
+Additionally, you can create custom log streams based on your specific requirements, such as sending logs to a database or a remote logging service. All you need to do is inheriting from LogStream.
+
+## Log Streams
+
+Log streams are like pathways where log messages travel. In this library, you'll find two built-in log streams: `FileStreamImpl` and `Loki`.
+
+`FileStreamImpl` enables you to save logs to your device's internal storage. These logs are located at `Device File Explorer/data/data/your-package-name/files/logger`. When you check this location after logging,
+you'll see your logger's files and an additional file named `file_stream_cache`. This file handles logs that weren't sent through the stream due to flusher limitations. These pending logs are sent to streams 
+immediately upon reopening the application. (Note that if you want to send logs to the stream right away, you can use `NoLimitFlusher` or use `groovy logger.f` for force logging.)
+
+`Loki` adds the ability to send logs to a server.
+
+Moreover, you can create your own custom log streams to meet specific needs, such as sending logs to a database. Creating custom streams is as simple as inheriting from `LogStream`.
 
 ## Flushers
 
@@ -81,8 +111,10 @@ Flushers handle the flushing of log messages from a buffer to the corresponding 
 - `TimeFlusher`: Flushes log messages based on a specified time interval.
 - `CountFlusher`: Flushes log messages once a certain count threshold is reached.
 - `TimeAndCountFlusher`: Flushes log messages based on a time interval and count threshold.
+- `NoLimitFlusher`: Flushes log messages immediately.
 
-By using the appropriate flusher, you can control the frequency and efficiency of log flushing, ensuring optimal log management.
+By choosing the right flusher, you can control how often logs will be sent, making sure your log management works well.
+And if you want, you can create your own flusher by inheriting from Flusher.
 
 ## File Manager
 
@@ -109,6 +141,9 @@ val logger = SnappLogger(logStreams)
 logger.log(LogLevel.Debug, "Tag", "Debug message")
 logger.log(LogLevel.Warning, "Tag", "Warning message")
 logger.log(LogLevel.Error, "Tag", "Error message")
+logger.log(LogLevel.UserInteraction, "Tag", "UserInteraction message")
+logger.log(LogLevel.Force, "Tag", "Force message")
+
 
 // Close the logger when done
 logger.close()
