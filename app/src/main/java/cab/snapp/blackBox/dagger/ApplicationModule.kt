@@ -102,8 +102,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideCrashHandler(logger: SnappLogger): CrashHandler {
-        return CrashHandler(logger = logger)
+    fun provideCrashHandler(onCrashCaught: suspend (Throwable) -> Unit): CrashHandler {
+        return CrashHandler(onCrashCaught)
     }
 
 
