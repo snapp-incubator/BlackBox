@@ -88,7 +88,6 @@ class FileManagerImpl(
         }
         reader.close()
         return fileData.toString()
-
     }
 
 

@@ -21,13 +21,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import cab.snapp.blackBox.components.LogReportPeriodDialog
-import cab.snapp.blackBox.poaro.FileHelper
 import cab.snapp.blackBox.poaro.LogReportGenerator
 import cab.snapp.blackBox.poaro.SnappLogger
 import cab.snapp.blackBox.poaro.d
-import cab.snapp.blackBox.poaro.fileManager.FileManagerImpl.Companion.REPORT_FOLDER_NAME
 import cab.snapp.blackBox.ui.theme.LoggerTheme
 import cab.snapp.blackBox.utils.FileShareUtils
+import java.io.File
 import javax.inject.Inject
 
 
@@ -54,7 +53,7 @@ class MainActivity : ComponentActivity() {
             var showReportDialog by remember { mutableStateOf(false) }
             val onPeriodSelected = remember {
                 { selectedItem: Int ->
-                    generateReport(selectedItem, REPORT_FILE_NAME)
+                    createAndShareReport(selectedItem, REPORT_FILE_NAME)
                 }
             }
             val dismissDialog = remember {
@@ -99,21 +98,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun generateReport(timeRange: Int, outputFile: String) {
-        val fileHelper = FileHelper(this@MainActivity.filesDir)
-
-        val folder = fileHelper.createFolder(REPORT_FOLDER_NAME)
-        val file = fileHelper.createFile(folder, outputFile)
-        logReportGenerator.generateReport(timeRange, file)
-        shareReport()
+    private fun createAndShareReport(timeRange: Int, outputFileName: String) {
+        val file = logReportGenerator.createAndGetReport(timeRange, outputFileName)
+        shareReport(file)
     }
 
-    private fun shareReport() {
-        val fileHelper = FileHelper(this@MainActivity.filesDir)
-
-        val folder = fileHelper.createFolder(REPORT_FOLDER_NAME)
-        val reportFile = fileHelper.createFile(folder, REPORT_FILE_NAME)
-
+    private fun shareReport(reportFile : File) {
         if (reportFile.exists()) {
             val fileShareUtils = FileShareUtils(this@MainActivity)
 
