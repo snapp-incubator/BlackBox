@@ -15,8 +15,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "BlackBox"
 include ':app'
-include ':poaro'
-include ':streams'
-include ':streams:loki'
-include ':streams:fileStream'
+include ':poaro:poaro'
+include ':poaro:streams'
+include ':poaro:streams:loki'
+include ':poaro:streams:fileStream'
 include ':crashHandler'
